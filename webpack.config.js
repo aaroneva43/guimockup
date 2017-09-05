@@ -9,7 +9,7 @@ module.exports = {
             path: __dirname + "/build",
             filename: "bundle-[hash].js"
         },
-        devtool: 'none',
+        devtool: 'sourcemap',
         devServer: {
             contentBase: "./public", //本地服务器所加载的页面所在的目录
             historyApiFallback: true, //不跳转

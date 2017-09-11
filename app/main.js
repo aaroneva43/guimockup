@@ -6,4 +6,4 @@ import Grid from './cmp/Grid'
 
 
 
-ReactDOM.render(<div data={[{a:1,b:2}]}/>, document.querySelector('#root'));
+ReactDOM.render(<Grid data={[{a:"xxxx",b:"yyyy"}, {a:"wwww",b:"zzzz"}]}/>, document.querySelector('#root'));

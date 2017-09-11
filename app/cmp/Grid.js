@@ -15,26 +15,32 @@ class Grid extends Component {
     const { data } = this.props;
 
     return (
-      <table style={{width: '400px'}}>
+      <table style={{ width: '400px' }} className="grid">
         {
-          data.map(row => {
+          data.map((row) => {
+
             return (
-              <tr>
-                {
-                  (row => {
-                    let cols = [];
+              <tbody>
+                <tr>
+                  {
+                    ((r) => {
 
-                    for (let c in row) {
-                      cols.push(<td>{row[c]}</td>);
-                    }
-                    return cols.join()
+                      let cols = [];
 
-                  })()
-                }
+                      for (let c in r) {
+                        cols.push(<td>{r[c]}</td>);
+                      }
+                      return cols
 
-              </tr>)
+                    })(row)
+                  }
+
+                </tr>
+              </tbody>)
+
           })
         }
+
       </table>
     );
   }

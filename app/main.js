@@ -6,4 +6,9 @@ import Grid from './cmp/Grid'
 
 
 
-ReactDOM.render(<Grid data={[{a:"xxxx",b:"yyyy"}, {a:"wwww",b:"zzzz"}]}/>, document.querySelector('#root'));
+ReactDOM.render(
+    <Grid
+        data={[{ name: "xxxx", group: "yyyy", ff:333 }, { name: "wwww", group: "zzzz" }]}
+        columns={[{ header: 'name', dataIndex: 'name' }, { header: 'group', dataIndex: 'group' }]}
+    />,
+    document.querySelector('#root'));

@@ -16,7 +16,7 @@ class Login extends React.Component {
                     <div className="text-left logo-text">Forti<span className="login-hightlight">SDWAN</span></div>
                     <div className="version-block">
                         <span>
-                            <div className="login-circle first" />
+                            <div className="login-circle first" />  
                             <div className="login-circle second" />
                             <div className="login-circle third" />
                         </span>

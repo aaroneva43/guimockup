@@ -1,27 +1,44 @@
-// 一个常见的`webpack`配置文件
-const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const extractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const extractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
+
+const publicPath = path.resolve(__dirname, './app/client')
+const buildPath = path.resolve(__dirname, './app')
 
 module.exports = {
-    entry: __dirname + "/app/main.js", //已多次提及的唯一入口文件
+    // entry: __dirname + "/app/main.js",
+    entry: {
+        bundle: [
+            'webpack/hot/dev-server',
+            // 'webpack-hot-middleware/client',
+            './app/main.js'
+          ]
+    },
     output: {
-        path: __dirname + "/build",
-        filename: "bundle-[hash].js"
+        path: __dirname + "/dist",
+        filename: "bundle-[hash].js",
+        publicPath: '/'
     },
     devtool: 'sourcemap',
     devServer: {
-        contentBase: "./public", //本地服务器所加载的页面所在的目录
-        historyApiFallback: true, //不跳转
+        contentBase: "./public",
+        historyApiFallback: true,
         inline: true,
         hot: true
     },
     module: {
         rules: [{
             test: /(\.jsx|\.js)$/,
-            use: {
+            use: [{
+                loader: "react-hot-loader"
+            }],
+            exclude: /node_modules/
+        }, {
+            test: /(\.jsx|\.js)$/,
+            use: [{
                 loader: "babel-loader"
-            },
+            }],
             exclude: /node_modules/
         }, {
             test: /\.css$/,
@@ -41,13 +58,14 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.BannerPlugin('版权所有，翻版必究'),
         new htmlWebpackPlugin({
-            template: __dirname + "/app/index.tmpl.html" //new 一个这个插件的实例，并传入相关的参数
+            template: __dirname + "/app/index.tmpl.html"
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         // new webpack.optimize.UglifyJsPlugin(),
-        new extractTextPlugin("style.css")
+        new extractTextPlugin("style.css"),
+        new webpack.HotModuleReplacementPlugin(),
+        
 
     ],
 }

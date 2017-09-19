@@ -1,12 +1,16 @@
 import React from 'react'
 import { Router, Route, Link, hashHistory, IndexRoute, browserHistory, Redirect } from 'react-router'
-import { history } from 'history'
 
+import Login from './containers/Login'
+import BasePage from './containers/BasePage'
 
-// import Login from './containers/Login'
-console.log(history)
-export default(
+export default (
     <Router history={history}>
-        {/* <Redirect from="/" to="/login"/> */}
+        <Redirect from="/" to="/login" />
+        <Route path="/" component={BasePage}>
+            {/* Default route*/}
+            <IndexRoute component={Login} />
+            <Route path="/login" component={Login} />
+        </Route>
     </Router>
 );

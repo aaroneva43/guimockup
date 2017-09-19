@@ -1,12 +1,18 @@
 
-import React from 'react'
+import React  from 'react'
+import ReactDOM from 'react-dom';
 import { render } from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
+import { useRouterHistory } from 'react-router';
 import { createHistory } from 'history';
+import { syncHistoryWithStore } from 'react-router-redux'
+
+import rootReducer from './reducers'
+
 import Root from './containers/Root'
 
 
@@ -19,16 +25,22 @@ if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger())
 }
 
-const store = createStore(
-    //   reducer,
-    applyMiddleware(...middleware)
-)
+const browserHistory = useRouterHistory(createHistory)({
+    basename: '/ui'
+});
 
-render(
+
+const store = createStore(rootReducer, {}, applyMiddleware(thunk))
+
+
+
+
+const history = syncHistoryWithStore(browserHistory, store);
+
+ReactDOM.render(
     <Root store={store} history={history} />,
     document.getElementById('root')
 )
-
 
 {/* <Grid
     data={[{ name: "xxxx", group: "yyyy", ff: 333 }, { name: "wwww", group: "zzzz" }]}
